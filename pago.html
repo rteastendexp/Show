@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <script src="https://www.paypal.com/sdk/js?client-id=Ad_5NXUUsio7XqC4fB7uJvG9WB1pkpvMQsr7WX9gWjRw6XikBOELE10Vh9wf74W53hTTzet6ct8-vgbd&currency=USD&components=buttons,funding-eligibility"></script>
+
+  <meta charset="UTF-8">
+  <title>Formulario de Reserva Roatan East Hidden Gem</title>
+  <style>
+    body {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      background-image: url('image/1.webp');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: rgba(241, 247, 254, 0.7);
+      font-family: Arial, sans-serif;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background-color: rgba(255, 255, 255, 0.6);
+      z-index: 0;
+    }
+
+    .form-box {
+      position: relative;
+      z-index: 1;
+    }
+
+    .page-container {
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 40px;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+      position: relative;
+      z-index: 1;
+      flex-wrap: wrap;
+    }
+
+    .form-container {
+      width: 400px;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+    }
+
+    .payment-container {
+      width: 100%;
+      max-width: 600px;
+      min-width: 300px;
+      flex: 1;
+      background: #fff;
+      border-radius: 16px;
+      box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      padding: 30px;
+      text-align: center;
+      display: none;
+    }
+
+    .payment-container.visible {
+      display: block;
+    }
+
+    .form-container.locked input,
+    .form-container.locked select {
+      background-color: #f5f5f5;
+      pointer-events: none;
+      opacity: 0.8;
+    }
+
+    h2 {
+      margin-bottom: 10px;
+    }
+
+    .input, select {
+      width: 100%;
+      padding: 10px;
+      margin: 10px 0;
+      border: 1px solid #ccc;
+      border-radius: 8px;
+      font-size: 1rem;
+      box-sizing: border-box;
+      text-align: center;
+    }
+
+    button {
+      width: 100%;
+      background-color: #0096ff;
+      color: white;
+      padding: 10px;
+      font-size: 1rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background-color: #005ce6;
+    }
+
+    input[readonly] {
+      background-color: #eaeaea;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="page-container">
+    <div class="form-container">
+      <h2>Reserva Roatan East Hidden Gem</h2>
+      
+      <form id="formulario" style="width: 100%;">
+        <input name="nombre" class="input" placeholder="Nombre completo" required>
+        <input name="email" class="input" placeholder="Email" type="email" required>
+        <input name="telefono" class="input" placeholder="Teléfono" required>
+
+        <select name="servicio" class="input" id="servicio" required>
+          <option value="" disabled selected>Selecciona un servicio</option>
+          <option name="servicio" value="Mangrove Tour|25">Mangrove Tour - $25</option>
+          <option name="servicio" value="Mangroves + Snorkel|35">Mangroves + Snorkel - $35</option>
+          <option name="servicio" value="Pigeon Cay Excursion|100">Pigeon Cay Excursion - $100</option>
+        </select>
+
+        <input name="cantidad" class="input" type="number" id="cantidad" placeholder="Cantidad de personas" required min="1">
+        <input name="fecha" class="input" type="date" required id="fecha">
+        <input name="hora" class="input" type="time" step="60" required>
+
+        <input name="total" class="input" id="total" placeholder="Total a pagar" readonly>
+      </form>
+    </div>
+
+    <div class="payment-container">
+      <h3>Proceder al pago</h3>
+      <div id="paypal-button-container" style="width: 100%;"></div>
+    </div>
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      // Configurar fecha mínima para hoy
+      const fechaInput = document.getElementById('fecha');
+      const hoy = new Date();
+      const fechaMinima = hoy.toISOString().split('T')[0];
+      fechaInput.min = fechaMinima;
+      const formContainer = document.querySelector('.form-container');
+      const paymentContainer = document.querySelector('.payment-container');
+      const formulario = document.getElementById('formulario');
+      const servicio = document.getElementById('servicio');
+      const cantidad = document.getElementById('cantidad');
+      const total = document.getElementById('total');
+      
+      function validarFormulario() {
+        const inputs = formulario.querySelectorAll('input[required], select[required]');
+        let todoLleno = true;
+        
+        inputs.forEach(input => {
+          if (!input.value) {
+            todoLleno = false;
+          }
+        });
+        
+        if (todoLleno && total.value) {
+          paymentContainer.classList.add('visible');
+        } else {
+          paymentContainer.classList.remove('visible');
+        }
+      }
+
+      function calcularTotal() {
+        const valorServicio = servicio.value;
+        const cantidadPersonas = parseInt(cantidad.value);
+
+        if (valorServicio && !isNaN(cantidadPersonas) && cantidadPersonas > 0) {
+          const [nombre, precio] = valorServicio.split('|');
+          const totalCalculado = parseFloat(precio) * cantidadPersonas;
+          total.value = totalCalculado.toFixed(2);
+        } else {
+          total.value = '';
+        }
+        validarFormulario();
+      }
+
+      // Agregar eventos para validar el formulario
+      formulario.querySelectorAll('input[required], select[required]').forEach(input => {
+        input.addEventListener('input', validarFormulario);
+        input.addEventListener('change', validarFormulario);
+      });
+
+      servicio.addEventListener('change', calcularTotal);
+      cantidad.addEventListener('input', calcularTotal);
+
+      paypal.Buttons({
+        style: {
+          layout: 'vertical',
+          color: 'blue',
+          shape: 'pill',
+          label: 'paypal',
+        },
+
+        onClick: function() {
+          formContainer.classList.add('locked');
+        },
+        createOrder: function (data, actions) {
+          const totalPago = parseFloat(total.value);
+          if (!totalPago || isNaN(totalPago)) {
+            alert("Por favor completa todos los campos antes de pagar.");
+            return actions.reject();
+          }
+
+          return actions.order.create({
+            purchase_units: [{
+              amount: {
+                value: totalPago.toFixed(2)
+              }
+            }]
+          });
+        },
+        onApprove: function (data, actions) {
+          return actions.order.capture().then(function (details) {
+            enviarFormulario();
+          });
+        },
+        onError: function (err) {
+          console.error('Error en el pago:', err);
+          alert('Hubo un error con el pago ❌');
+          formContainer.classList.remove('locked');
+        }
+      }).render('#paypal-button-container');
+    });
+
+    function enviarFormulario() {
+      const form = document.getElementById('formulario');
+
+      const datos = new FormData();
+      datos.append("nombre", form.nombre.value);
+      datos.append("email", form.email.value);
+      datos.append("telefono", form.telefono.value);
+      datos.append("servicio", form.servicio.options[form.servicio.selectedIndex].text);
+      datos.append("cantidad", form.cantidad.value);
+      datos.append("fecha", form.fecha.value);
+      datos.append("hora", form.hora.value);
+      datos.append("total", form.total.value);
+
+      fetch("https://script.google.com/macros/s/AKfycbw0AyRTYcSuCektLulwip2S-9qQ_zlhDXZGxH-pkYuYfLCRtFtwdFxwsLRme4KrG6aHzQ/exec", {
+        method: "POST",
+        body: datos,
+        mode: "no-cors"
+      }).then(() => {
+        form.reset();
+        document.getElementById('total').value = '';
+        window.location.href = "gracias.html";
+      }).catch(err => {
+        alert("Error al enviar ❌");
+        console.error(err);
+      });
+    }
+  </script>
+
+</body>
+</html>
