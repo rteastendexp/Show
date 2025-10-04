@@ -95,7 +95,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
       (formData.specialRequests
         ? `*Special requests:* ${formData.specialRequests}\n`
         : "") +
-      `\nI accept the refund policy: https://yourdomain.com/politica-devolucion\n`
+      `\nI accept the refund policy: https://www.roataneasthiddengem.com/politica-devolucion\n`
     );
   };
 
