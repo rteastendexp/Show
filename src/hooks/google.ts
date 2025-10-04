@@ -5,12 +5,54 @@ const API_KEY = "AIzaSyCEJHF8faiqlEzqDc-IKR9Xpsol9VMOFjI";
 const SHEET_NAME = "portada";
 
 export function useGoogleImages() {
-  // Forzar imágenes locales
   const [images, setImages] = useState({
-    img1: "/imgp/1.webp",
-    img2: "/imgp/2.webp",
-    logo: "/imgp/logo.webp"
+    img1: "",
+    img2: "",
+    logo: ""
   });
-  // No fetch, solo imágenes locales
-  return { ...images, loading: false, error: null };
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    async function fetchImages() {
+      setLoading(true);
+      setError(null);
+      try {
+        const url = `https://sheets.googleapis.com/v4/spreadsheets/${SHEET_ID}/values/${SHEET_NAME}!A2:B4?key=${API_KEY}`;
+        const res = await fetch(url);
+        if (!res.ok) throw new Error("No se pudo obtener la hoja de cálculo");
+        const data = await res.json();
+        const values = data.values || [];
+        // Buscar por nombre en la columna A
+        let portada = "";
+        let galeria = "";
+        let logo = "";
+        values.forEach(row => {
+          if (row[0] === "Portada") portada = row[1];
+          if (row[0] === "Galeria") galeria = row[1];
+          if (row[0] === "Logo") logo = row[1];
+        });
+        // Si la URL no es absoluta, forzar ruta local
+        const fixUrl = (url: string, fallback: string) => {
+          if (!url) return fallback;
+          if (/^https?:\/\//.test(url)) return url;
+          // Si es solo el nombre del archivo, prepende /imgp/
+          if (!url.startsWith("/")) return `/imgp/${url}`;
+          return url;
+        };
+        setImages({
+          img1: fixUrl(portada, "/imgp/1.webp"),
+          img2: fixUrl(galeria, "/imgp/2.webp"),
+          logo: fixUrl(logo, "/imgp/logo.webp")
+        });
+      } catch (e) {
+        setError(e);
+      } finally {
+        setLoading(false);
+      }
+    }
+    fetchImages();
+  }, []);
+
+  return { ...images, loading, error };
 }
