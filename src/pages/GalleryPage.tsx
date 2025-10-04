@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useGoogleImages } from "../hooks/google";
 import { X, ChevronLeft, ChevronRight, Filter } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { GalleryItem } from "../types";
@@ -6,6 +7,7 @@ import { getGallery } from "../services/googleSheets";
 
 const GalleryPage: React.FC = () => {
   const { t } = useLanguage();
+  const { img2 } = useGoogleImages();
   const [galleryItems, setGalleryItems] = useState<GalleryItem[]>([]);
   const [filteredItems, setFilteredItems] = useState<GalleryItem[]>([]);
   const [loading, setLoading] = useState(true);
@@ -152,13 +154,12 @@ const GalleryPage: React.FC = () => {
       </div>
     );
   }
-
   return (
     <div className="min-h-screen pt-20">
       {/* Hero Section */}
       <section className="relative py-20 text-white overflow-hidden min-h-[90vh] md:min-h-[110vh] flex items-center justify-center">
         <img
-          src="/imgp/2.webp"
+          src={img2 || "/imgp/2.webp"}
           alt="Galería Roatan East Hidden Gem"
           className="absolute inset-0 w-full h-full object-cover object-center z-0"
           style={{ filter: "brightness(0.7)" }}

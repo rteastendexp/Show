@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useGoogleImages } from "../hooks/google";
 import { Play, Calendar, Users, Star } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import BookingModal from "./BookingModal";
@@ -26,21 +27,22 @@ const Hero: React.FC = () => {
     },
   ];
 
+  const { img1, loading: loadingImg1 } = useGoogleImages();
   return (
-  <section
-  className="relative w-full flex items-center justify-center overflow-hidden pt-40 md:pt-56"
-  style={{ height: "100vh" }}
->
-  {/* Background Image with Overlay */}
-  <div className="absolute inset-0 z-0">
-    <img
-      src="/imgp/1.webp"
-      alt="Roatan East Hidden Gem"
-      className="w-full h-full object-cover object-center"
-      loading="lazy"
-    />
-    <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-teal-900/40"></div>
-  </div>
+    <section
+      className="relative w-full flex items-center justify-center overflow-hidden pt-40 md:pt-56"
+      style={{ height: "100vh" }}
+    >
+      {/* Background Image with Overlay */}
+      <div className="absolute inset-0 z-0">
+        <img
+          src={img1 || "/imgp/1.webp"}
+          alt="Roatan East Hidden Gem"
+          className="w-full h-full object-cover object-center"
+          loading="lazy"
+        />
+        <div className="absolute inset-0 bg-gradient-to-br from-black/50 via-black/30 to-teal-900/40"></div>
+      </div>
 
 
       {/* Floating Elements */}

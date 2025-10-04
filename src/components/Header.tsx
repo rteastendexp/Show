@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useGoogleImages } from "../hooks/google";
 import { Link, useLocation } from "react-router-dom";
 import { Menu, X, Globe } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
@@ -41,6 +42,7 @@ const Header: React.FC = () => {
     return false;
   };
 
+  const { logo } = useGoogleImages();
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
@@ -56,23 +58,19 @@ const Header: React.FC = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             <img
-              src="/imgp/logo.webp"
+              src={logo || "/imgp/logo.webp"}
               alt="Roatan East Hidden Gem Logo"
               className="w-12 h-12 rounded-full shadow-lg border-2 border-white bg-white object-cover group-hover:scale-110 transition-transform duration-200"
               style={{ background: "white" }}
             />
             <div className="hidden sm:block">
               <h1
-                className={`font-bold text-lg ${
-                  isScrolled ? "text-gray-800" : "text-white"
-                }`}
+                className={`font-bold text-lg ${isScrolled ? "text-gray-800" : "text-white"}`}
               >
                 Roatan East
               </h1>
               <p
-                className={`text-sm ${
-                  isScrolled ? "text-gray-600" : "text-gray-200"
-                }`}
+                className={`text-sm ${isScrolled ? "text-gray-600" : "text-gray-200"}`}
               >
                 Hidden Gem
               </p>
