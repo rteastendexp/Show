@@ -97,7 +97,7 @@ export const getExperiences = async (): Promise<Experience[]> => {
     return processExperiencesData(data);
   } catch (error) {
     console.error('Error fetching experiences:', error);
-    return getMockExperiences();
+    return [];
   }
 };
 
@@ -113,79 +113,7 @@ export const getGallery = async (): Promise<GalleryItem[]> => {
   }
 };
 
-// Datos mock para desarrollo y fallback
 
-export const getMockExperiences = (): Experience[] => [
-  {
-    id: 'exp1',
-    title: 'Una experiencia increíble',
-    description: 'El tour de manglares fue absolutamente mágico. Nuestro guía fue muy conocedor y nos mostró lugares que nunca hubiéramos encontrado solos.',
-    image: '/images/tropical-wildlife.jpg',
-    rating: 5,
-    testimonial: 'Una aventura que recordaré para siempre. El equipo fue profesional y la naturaleza, simplemente espectacular.',
-    author: 'María González - España',
-  },
-  {
-    id: 'exp2',
-    title: 'Perfecto para familias',
-    description: 'Llevé a mis hijos y todos disfrutamos muchísimo. Las actividades están perfectamente organizadas para todas las edades.',
-    image: '/images/roatan-paradise.jpg',
-    rating: 5,
-    testimonial: 'Mis hijos no paran de hablar de los peces tropicales que vieron. ¡Definitivamente volveremos!',
-    author: 'John Smith - Estados Unidos',
-  },
-  {
-    id: 'exp3',
-    title: 'Naturaleza pura',
-    description: 'Como biólogo marino, quedé impresionado con la biodiversidad y el compromiso con la conservación.',
-    image: '/images/aerial-beach-view.jpeg',
-    rating: 5,
-    testimonial: 'Roatan East Hidden Gem realmente cuida y respeta el ecosistema. Una empresa responsable.',
-    author: 'Dr. Ana Rodríguez - México',
-  }
-];
 
 export const getMockGallery = (): GalleryItem[] => [
-  {
-    id: 'gal1',
-    image: '/images/hero-mangrove-tour.jpg',
-    title: 'Explorando Manglares',
-    description: 'Aventura en kayak por los manglares',
-    category: 'mangroves',
-  },
-  {
-    id: 'gal2',
-    image: '/images/snorkeling-adventure.webp',
-    title: 'Mundo Submarino',
-    description: 'Snorkel en aguas cristalinas',
-    category: 'underwater',
-  },
-  {
-    id: 'gal3',
-    image: '/images/jungle-exploration.jpg',
-    title: 'Selva Tropical',
-    description: 'Caminata por la selva',
-    category: 'nature',
-  },
-  {
-    id: 'gal4',
-    image: '/images/sunset-boat-tour.jpg',
-    title: 'Atardecer Caribeño',
-    description: 'Crucero al atardecer',
-    category: 'sunset',
-  },
-  {
-    id: 'gal5',
-    image: '/images/tropical-wildlife.jpg',
-    title: 'Vida Silvestre',
-    description: 'Fauna tropical de Roatán',
-    category: 'wildlife',
-  },
-  {
-    id: 'gal6',
-    image: '/images/aerial-beach-view.jpeg',
-    title: 'Vista Aérea',
-    description: 'Playas paradisíacas desde el aire',
-    category: 'aerial',
-  }
 ];

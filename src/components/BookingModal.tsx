@@ -27,6 +27,8 @@ const BookingModal: React.FC<BookingModalProps> = ({
     email: "",
     phone: "",
     specialRequests: "",
+    meetingPoint: "",
+    otherMeetingPoint: "",
   });
 
   useEffect(() => {
@@ -64,10 +66,16 @@ const BookingModal: React.FC<BookingModalProps> = ({
     >
   ) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: name === "numberOfPeople" ? parseInt(value) || 1 : value,
-    }));
+    setFormData((prev) => {
+      if (name === "numberOfPeople") {
+        return { ...prev, [name]: parseInt(value) || 1 };
+      }
+      // Reset otherMeetingPoint if meetingPoint changes
+      if (name === "meetingPoint" && value !== "Other") {
+        return { ...prev, meetingPoint: value, otherMeetingPoint: "" };
+      }
+      return { ...prev, [name]: value };
+    });
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -80,11 +88,16 @@ const BookingModal: React.FC<BookingModalProps> = ({
 
   // Generar mensaje de WhatsApp con formato
   const getWhatsappMessage = () => {
+    const meetingPointText =
+      formData.meetingPoint === "Other"
+        ? formData.otherMeetingPoint
+        : formData.meetingPoint;
     return (
       `Hello! I would like to book a tour.\n\n` +
       `*Tour:* ${selectedTourData?.name || ""}\n` +
       `*Date:* ${formData.date}\n` +
       `*People:* ${formData.numberOfPeople}\n` +
+      `*Meeting Point:* ${meetingPointText || "Not specified"}\n` +
       `*Price per person:* $${
         selectedTourData?.personPrice || selectedTourData?.price || ""
       }\n` +
@@ -210,6 +223,34 @@ const BookingModal: React.FC<BookingModalProps> = ({
               )}
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Meeting Point
+                  </label>
+                  <select
+                    name="meetingPoint"
+                    value={formData.meetingPoint}
+                    onChange={handleInputChange}
+                    required
+                    className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                  >
+                    <option value="">Select meeting point...</option>
+                    <option value="Coxen Hole Cruise Port">Coxen Hole Cruise Port</option>
+                    <option value="Mahogany Bay">Mahogany Bay</option>
+                    <option value="Other">Other</option>
+                  </select>
+                  {formData.meetingPoint === "Other" && (
+                    <input
+                      type="text"
+                      name="otherMeetingPoint"
+                      value={formData.otherMeetingPoint}
+                      onChange={handleInputChange}
+                      placeholder="Please specify meeting point"
+                      className="w-full mt-2 p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-transparent"
+                      required
+                    />
+                  )}
+                </div>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
                     {t.booking.selectDate}

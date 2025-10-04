@@ -8,6 +8,7 @@ import ServiceDetailPage from './pages/ServiceDetailPage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
 import PoliticaDevolucion from './pages/PoliticaDevolucion';
+import Mapas from './pages/Mapas';
 import './App.css';
 
 function App() {
@@ -23,6 +24,7 @@ function App() {
               <Route path="gallery" element={<GalleryPage />} />
               <Route path="contact" element={<ContactPage />} />
               <Route path="politica-devolucion" element={<PoliticaDevolucion />} />
+              <Route path="mapas" element={<Mapas />} />
             </Route>
           </Routes>
         </div>

@@ -33,6 +33,7 @@ const Header: React.FC = () => {
     { key: "home", href: "/", label: t.nav.home },
     { key: "services", href: "/services", label: t.nav.services },
     { key: "gallery", href: "/gallery", label: t.nav.gallery },
+    { key: "meetingpoints", href: "/mapas", label: t.nav.meetingPoints || "Meeting Points" },
     { key: "contact", href: "/contact", label: t.nav.contact },
   ];
 

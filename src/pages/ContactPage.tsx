@@ -83,10 +83,11 @@ const ContactPage: React.FC = () => {
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <h3 className="font-semibold text-gray-800 mb-2">
-                    Where does the tour start?
+                    Where does the tour start if I come by cruise ship?
                   </h3>
                   <p className="text-gray-600 text-sm">
-Each excursion has a designated meeting point, which we will confirm at the time of booking, to ensure convenience and easy access.                  </p>
+Each excursion has a designated meeting point, which we will confirm at the time of booking, to ensure convenience and easy access. You can see the meeting points <a href="/mapas" className="text-blue-600 underline" target="_blank" rel="noopener noreferrer">here</a>.
+                  </p>
                 </div>
 
                 <div className="bg-gray-50 p-6 rounded-lg">
@@ -94,7 +95,9 @@ Each excursion has a designated meeting point, which we will confirm at the time
                     What payment methods do you accept?
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    We accept cash (US dollars and lempiras), PayPal, and bank transfers. For online bookings, we prefer PayPal for security.
+               We accept payments via PayPal, Zelle, credit or debit cards, and bank transfers. You can also pay in cash (dollars or lempiras) on the day of the tour.
+
+We do not take online reservations. Contact us directly to confirm your reservation and arrange payment.
                   </p>
                 </div>
 
@@ -103,7 +106,7 @@ Each excursion has a designated meeting point, which we will confirm at the time
                     What is your cancellation policy?
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Free cancellation up to 24 hours before the tour. For weather-related cancellations, we offer rescheduling or a full refund.
+                    You can view our full refund policy <a href="/politica-devolucion" className="text-teal-600 underline hover:text-teal-800" target="_blank" rel="noopener noreferrer">here</a>.
                   </p>
                 </div>
               </div>

@@ -7,7 +7,8 @@ const translations: Record<Language, Translations> = {
       services: 'Servicios',
       gallery: 'Galería',
       contact: 'Contacto',
-      experiences: 'Experiencias',
+  experiences: 'Experiencias',
+  meetingPoints: 'Puntos de Encuentro',
     },
     hero: {
       title: 'Descubre los Tesoros Ocultos de Roatán Este',
@@ -80,7 +81,8 @@ const translations: Record<Language, Translations> = {
       services: 'Services',
       gallery: 'Gallery',
       contact: 'Contact',
-      experiences: 'Experiences',
+  experiences: 'Experiences',
+  meetingPoints: 'Meeting Points',
     },
     hero: {
       title: ' Roatan East Hidden Gems Tours',

@@ -42,6 +42,7 @@ export interface Translations {
     gallery: string;
     contact: string;
     experiences: string;
+    meetingPoints: string;
   };
   hero: {
     title: string;
@@ -117,6 +118,8 @@ export interface BookingForm {
   fullName: string;
   email: string;
   phone: string;
+  meetingPoint: string;
+  otherMeetingPoint: string;
   specialRequests?: string;
 }
 
