@@ -259,13 +259,13 @@ const Contact: React.FC = () => {
 
               {/* Submit Status Messages */}
               {submitStatus === 'success' && (
-                <div className="flex items-center p-4 bg-green-50 border border-green-200 rounded-lg text-green-800">
+                <div className="flex items-center p-4 bg-green-50 border border-green-200 rounded-lg text-green-800" style={{animation: 'none'}}>
                   <CheckCircle className="w-5 h-5 mr-2" />
                   {t.contact.success}
                 </div>
               )}
               {(submitStatus === 'error' || sendError) && (
-                <div className="flex items-center p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
+                <div className="flex items-center p-4 bg-red-50 border border-red-200 rounded-lg text-red-800" style={{animation: 'none'}}>
                   <X className="w-5 h-5 mr-2" />
                   {t.contact.error}
                   {sendError && (
