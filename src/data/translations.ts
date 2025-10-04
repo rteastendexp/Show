@@ -83,8 +83,8 @@ const translations: Record<Language, Translations> = {
       experiences: 'Experiences',
     },
     hero: {
-      title: 'Discover Roatan East Hidden Gems',
-      subtitle: 'Unique Mangrove & Nature Adventures',
+      title: ' Roatan East Hidden Gems Tours',
+      subtitle: 'Discover Unique Mangrove & Nature Adventures',
       cta: 'Book Adventure',
       description: 'Explore Roatan\'s best-kept secrets with our specialized mangrove tours, water adventures, and unique natural experiences.',
     },
