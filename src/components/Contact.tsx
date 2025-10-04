@@ -83,8 +83,12 @@ const Contact: React.FC = () => {
   };
 
   const { sendContact, loading, error: sendError, success } = useContactos();
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    // Forzar blur en el botón para evitar manipulación de DOM tras submit
+    if (document.activeElement instanceof HTMLElement) {
+      document.activeElement.blur();
+    }
     setIsSubmitting(true);
     setSubmitStatus('idle');
     try {
@@ -98,6 +102,12 @@ const Contact: React.FC = () => {
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
       setSubmitStatus('error');
+      // Opcional: loguear el error real
+      if (error instanceof Error) {
+        console.error('Error en submit:', error.message, error.stack);
+      } else {
+        console.error('Error en submit:', error);
+      }
     } finally {
       setIsSubmitting(false);
     }
@@ -258,6 +268,9 @@ const Contact: React.FC = () => {
                 <div className="flex items-center p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
                   <X className="w-5 h-5 mr-2" />
                   {t.contact.error}
+                  {sendError && (
+                    <span className="ml-2 text-xs">{typeof sendError === 'string' ? sendError : (sendError?.message || '')}</span>
+                  )}
                 </div>
               )}
 
