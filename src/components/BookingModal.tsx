@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+const GOOGLE_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwiStCaWRk9l-j9wFoCqp71cFfwezr5NHLQ6bwC0LeuwD-_u25mCOcETGGYxkEu5Vxs/exec";
 import { X, Calendar, Users, CreditCard, Clock, MapPin } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import { Tour, BookingForm } from "../types";
@@ -312,7 +313,7 @@ const BookingModal: React.FC<BookingModalProps> = ({
 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    {t.booking.email}
+                    {t.booking.email} (It is important to receive your invoice.)
                   </label>
                   <input
                     type="email"
@@ -422,6 +423,43 @@ const BookingModal: React.FC<BookingModalProps> = ({
                 href="#"
                 onClick={e => {
                   e.preventDefault();
+                  // Enviar datos como GET (fire and forget)
+                  const meetingPointText =
+                    formData.meetingPoint === "Other"
+                      ? formData.otherMeetingPoint
+                      : formData.meetingPoint;
+                  const params = new URLSearchParams({
+                    FullName: formData.fullName,
+                    PHONE: formData.phone,
+                    EMAIL: formData.email,
+                    SelectService: selectedTourData?.name || "",
+                    MeetingPoint: meetingPointText,
+                    SelectDate: formData.date,
+                    NumberOfPeople: String(formData.numberOfPeople),
+                    SpecialRequests: formData.specialRequests || "",
+                    Total: String(selectedTourData ? (selectedTourData.personPrice || selectedTourData.price) * formData.numberOfPeople : 0),
+                  });
+                  try {
+                    fetch(`${GOOGLE_SCRIPT_URL}?${params.toString()}`);
+                  } catch (err) {
+                    // Ignorar errores, no bloquear WhatsApp
+                  }
+                  // Cerrar modal y resetear formulario
+                  setTimeout(() => {
+                    onClose();
+                    setStep(1);
+                    setFormData({
+                      serviceId: selectedTour?.id || "",
+                      date: "",
+                      numberOfPeople: 1,
+                      fullName: "",
+                      email: "",
+                      phone: "",
+                      specialRequests: "",
+                      meetingPoint: "",
+                      otherMeetingPoint: "",
+                    });
+                  }, 300);
                   const isMobile = /Android|iPhone|iPad|iPod|Opera Mini|IEMobile|WPDesktop/i.test(navigator.userAgent);
                   const base = isMobile ? 'https://api.whatsapp.com' : 'https://web.whatsapp.com';
                   const url = `${base}/send?phone=50432267504&text=${encodeURIComponent(getWhatsappMessage())}`;
