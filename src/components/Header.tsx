@@ -8,7 +8,12 @@ import { Language } from "../types";
 const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
-  const { language, setLanguage, t } = useLanguage();
+    const { setLanguage, t } = useLanguage();
+
+    // Always force English
+    React.useEffect(() => {
+      setLanguage("en");
+    }, [setLanguage]);
   const location = useLocation();
 
   useEffect(() => {
@@ -21,7 +26,7 @@ const Header: React.FC = () => {
   }, []);
 
   const toggleLanguage = () => {
-    setLanguage(language === "es" ? "en" : "es");
+  // Language toggle removed: always English
   };
 
   const navItems = [
@@ -91,22 +96,8 @@ const Header: React.FC = () => {
           </nav>
 
           {/* Language Toggle & Mobile Menu Button */}
-          <div className="flex items-center space-x-4">
-            {/* Language Toggle */}
-            <button
-              onClick={toggleLanguage}
-              className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 hover:bg-teal-500/20 ${
-                isScrolled ? "text-gray-800" : "text-white"
-              }`}
-              title={
-                language === "es" ? "Switch to English" : "Cambiar a Español"
-              }
-            >
-              <Globe className="w-4 h-4" />
-              <span className="text-sm font-medium">
-                {language.toUpperCase()}
-              </span>
-            </button>
+          {/* Mobile Menu Button Only */}
+          <div className="flex items-center gap-2 md:gap-4">
 
             {/* Mobile Menu Button */}
             <button

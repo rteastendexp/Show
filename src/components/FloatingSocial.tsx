@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { MessageCircle, Instagram, Facebook, ChevronUp } from 'lucide-react';
+import { useContactosPagina } from '../hooks/contactos_pagina';
 
 const FloatingSocial: React.FC = () => {
   const [showScrollTop, setShowScrollTop] = useState(false);
@@ -20,29 +21,31 @@ const FloatingSocial: React.FC = () => {
     });
   };
 
-  const socialButtons = [
+  const { contactos } = useContactosPagina();
+  const contacto = contactos[0];
+  const socialButtons = contacto ? [
     {
       name: 'WhatsApp',
-      href: 'https://wa.me/50432267504?text=Hola!%20Me%20interesa%20información%20sobre%20sus%20tours',
+      href: contacto.whatsapp ? `https://wa.me/${contacto.whatsapp.replace(/[^\d]/g, '')}?text=Hola!%20Me%20interesa%20información%20sobre%20sus%20tours` : undefined,
       icon: <MessageCircle className="w-6 h-6" />,
       bgColor: 'bg-green-500 hover:bg-green-600',
       pulse: true,
     },
     {
       name: 'Instagram',
-      href: 'https://instagram.com/roataneasthiddengem',
+      href: contacto.instagram,
       icon: <Instagram className="w-6 h-6" />,
       bgColor: 'bg-pink-500 hover:bg-pink-600',
       pulse: false,
     },
     {
       name: 'Facebook',
-      href: 'https://facebook.com/roataneasthiddengem',
+      href: contacto.facebook,
       icon: <Facebook className="w-6 h-6" />,
       bgColor: 'bg-blue-500 hover:bg-blue-600',
       pulse: false,
     },
-  ];
+  ] : [];
 
   return (
     <div className="fixed right-4 sm:right-6 bottom-4 sm:bottom-6 z-40 flex flex-col items-end space-y-3">

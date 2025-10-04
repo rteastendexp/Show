@@ -73,39 +73,8 @@ const GalleryPage: React.FC = () => {
     if (e.key === "ArrowLeft") prevImage();
   };
 
-  const categories = [
-    { value: "all", label: "Todas", count: galleryItems.length },
-    {
-      value: "mangroves",
-      label: "Manglares",
-      count: galleryItems.filter((i) => i.category === "mangroves").length,
-    },
-    {
-      value: "underwater",
-      label: "Submarinas",
-      count: galleryItems.filter((i) => i.category === "underwater").length,
-    },
-    {
-      value: "nature",
-      label: "Naturaleza",
-      count: galleryItems.filter((i) => i.category === "nature").length,
-    },
-    {
-      value: "sunset",
-      label: "Atardeceres",
-      count: galleryItems.filter((i) => i.category === "sunset").length,
-    },
-    {
-      value: "wildlife",
-      label: "Fauna",
-      count: galleryItems.filter((i) => i.category === "wildlife").length,
-    },
-    {
-      value: "aerial",
-      label: "Aéreas",
-      count: galleryItems.filter((i) => i.category === "aerial").length,
-    },
-  ];
+  // Category filters removed as requested
+  const categories: any[] = [];
 
   const getCategoryColor = (category: string) => {
     switch (category) {
@@ -182,35 +151,7 @@ const GalleryPage: React.FC = () => {
       </section>
 
       {/* Filters */}
-      <section className="py-8 bg-white shadow-sm">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex items-center justify-center">
-            <div className="flex items-center space-x-4">
-              <Filter className="w-5 h-5 text-gray-500" />
-              <div className="flex flex-wrap gap-2 justify-center">
-                {categories.map((category) => (
-                  <button
-                    key={category.value}
-                    onClick={() => setSelectedCategory(category.value)}
-                    className={`px-4 py-2 rounded-full text-sm font-medium transition-colors duration-200 ${
-                      selectedCategory === category.value
-                        ? "bg-teal-500 text-white"
-                        : "bg-gray-100 text-gray-700 hover:bg-gray-200"
-                    }`}
-                  >
-                    {category.label} ({category.count})
-                  </button>
-                ))}
-              </div>
-            </div>
-          </div>
-
-          {/* Results Count */}
-          <div className="mt-4 text-center text-gray-600">
-            Mostrando {filteredItems.length} de {galleryItems.length} fotos
-          </div>
-        </div>
-      </section>
+      {/* Category filters removed as requested */}
 
       {/* Gallery Grid */}
       <section className="py-12 bg-gray-50">

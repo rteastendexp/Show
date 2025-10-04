@@ -5,6 +5,8 @@ import { useLanguage } from "../contexts/LanguageContext";
 import { Tour } from "../types";
 import { getTours } from "../services/googleSheets";
 import BookingModal from "./BookingModal";
+import RefundPolicyModal from "./RefundPolicyModal";
+import { useModal } from "../hooks/useModal";
 
 const Services: React.FC = () => {
   const { t } = useLanguage();
@@ -12,6 +14,7 @@ const Services: React.FC = () => {
   const [loading, setLoading] = useState(true);
   const [selectedTour, setSelectedTour] = useState<Tour | undefined>(undefined);
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const { open: showRefund, openModal: openRefund, closeModal: closeRefund } = useModal();
 
   useEffect(() => {
     loadTours();
@@ -30,7 +33,7 @@ const Services: React.FC = () => {
 
   const handleBookNow = (tour: Tour) => {
     setSelectedTour(tour);
-    setShowBookingModal(true);
+    openRefund();
   };
 
   const getCategoryIcon = (category: string) => {
@@ -123,7 +126,7 @@ const Services: React.FC = () => {
                     <span className="mr-1">
                       {getCategoryIcon(tour.category || "default")}
                     </span>
-                    {tour.categoryLabel || "Aventura"}
+                    {tour.categoryLabel || "Adventure"}
                   </span>
                 </div>
                 <div className="absolute top-4 right-4">
@@ -158,8 +161,8 @@ const Services: React.FC = () => {
                     <Users className="w-4 h-4 mr-2 text-teal-500" />
                     <span>
                       {tour.groupInfo
-                        ? `Grupo de personas (máx. ${tour.groupInfo} personas)`
-                        : 'Grupo de personas (máx. 8 personas)'}
+                        ? `Group of people (max. ${tour.groupInfo} people)`
+                        : 'Group of people (max. 8 people)'}
                     </span>
                   </div>
                 </div>
@@ -170,7 +173,7 @@ const Services: React.FC = () => {
                     <span className="text-2xl font-bold text-gray-800">
                       ${tour.price}
                     </span>
-                    <span className="text-gray-500 ml-1">/ persona</span>
+                    <span className="text-gray-500 ml-1">/ person</span>
                   </div>
                 </div>
 
@@ -207,12 +210,23 @@ const Services: React.FC = () => {
             to="/services"
             className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-xl font-semibold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-xl hover:from-teal-400 hover:to-blue-500"
           >
-            Ver Todos los Tours
+            View All Tours
             <ArrowRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>
 
+      {/* Refund Policy Modal */}
+      {showRefund && (
+        <RefundPolicyModal
+          open={showRefund}
+          onAccept={() => {
+            closeRefund();
+            setShowBookingModal(true);
+          }}
+          onReject={closeRefund}
+        />
+      )}
       {/* Booking Modal */}
       {showBookingModal && (
         <BookingModal

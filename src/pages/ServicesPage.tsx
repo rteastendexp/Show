@@ -57,20 +57,20 @@ const ServicesPage: React.FC = () => {
   };
 
   const categories = [
-    { value: "all", label: "Todos los Tours", count: tours.length },
+    { value: "all", label: "All Tours", count: tours.length },
     {
       value: "water-adventure",
-      label: "Aventuras Acuáticas",
+      label: "Water Adventures",
       count: tours.filter((t) => t.category === "water-adventure").length,
     },
     {
       value: "nature",
-      label: "Naturaleza",
+      label: "Nature",
       count: tours.filter((t) => t.category === "nature").length,
     },
     {
       value: "romantic",
-      label: "Románticos",
+      label: "Romantic",
       count: tours.filter((t) => t.category === "romantic").length,
     },
   ];
@@ -152,15 +152,13 @@ const ServicesPage: React.FC = () => {
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
               <div className="text-lg">
-                <span className="font-semibold">{tours.length}</span> Tours
-                Disponibles
+                <span className="font-semibold">{tours.length}</span> Available Tours
               </div>
               <div className="text-lg">
-                <span className="font-semibold">4.9/5</span> Calificación
-                Promedio
+                <span className="font-semibold">4.9/5</span> Average Rating
               </div>
               <div className="text-lg">
-                <span className="font-semibold">500+</span> Aventureros Felices
+                <span className="font-semibold">500+</span> Happy Adventurers
               </div>
             </div>
           </div>
@@ -175,10 +173,10 @@ const ServicesPage: React.FC = () => {
             <div className="text-center py-16">
               <div className="text-6xl mb-4">🔍</div>
               <h3 className="text-2xl font-bold text-gray-800 mb-2">
-                No se encontraron tours
+                No tours found
               </h3>
               <p className="text-gray-600 mb-6">
-                Intenta cambiar los filtros o el término de búsqueda
+                Try changing the filters or search term
               </p>
               <button
                 onClick={() => {
@@ -187,7 +185,7 @@ const ServicesPage: React.FC = () => {
                 }}
                 className="px-6 py-3 bg-teal-500 text-white rounded-lg hover:bg-teal-600 transition-colors duration-200"
               >
-                Limpiar Filtros
+                Clear Filters
               </button>
             </div>
           ) : (
@@ -213,12 +211,12 @@ const ServicesPage: React.FC = () => {
                           {getCategoryIcon(tour.category || "default")}
                         </span>
                         {tour.category === "water-adventure"
-                          ? "Agua"
+                          ? "Water"
                           : tour.category === "nature"
-                            ? "Naturaleza"
+                            ? "Nature"
                             : tour.category === "romantic"
-                              ? "Romántico"
-                              : "Aventura"}
+                              ? "Romantic"
+                              : "Adventure"}
                       </span>
                     </div>
                     <div className="absolute top-4 right-4">
@@ -253,8 +251,8 @@ const ServicesPage: React.FC = () => {
                         <Users className="w-4 h-4 mr-2 text-teal-500" />
                         <span>
                           {tour.groupInfo
-                            ? `Grupo de personas (máx. ${tour.groupInfo} personas)`
-                            : 'Grupo de personas (máx. 8 personas)'}
+                            ? `Group of people (max. ${tour.groupInfo} people)`
+                            : 'Group of people (max. 8 people)'}
                         </span>
                       </div>
                       {tour.included && tour.included.length > 0 && (
@@ -272,7 +270,7 @@ const ServicesPage: React.FC = () => {
                         <span className="text-2xl font-bold text-gray-800">
                           ${tour.price}
                         </span>
-                        <span className="text-gray-500 ml-1">/ persona</span>
+                        <span className="text-gray-500 ml-1">/ person</span>
                       </div>
                     </div>
 

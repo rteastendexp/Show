@@ -73,24 +73,7 @@ const Gallery: React.FC = () => {
     }
   };
 
-  const getCategoryName = (category: string) => {
-    switch (category) {
-      case 'mangroves':
-        return 'Manglares';
-      case 'underwater':
-        return 'Submarino';
-      case 'nature':
-        return 'Naturaleza';
-      case 'sunset':
-        return 'Atardeceres';
-      case 'wildlife':
-        return 'Fauna';
-      case 'aerial':
-        return 'Aéreas';
-      default:
-        return 'General';
-    }
-  };
+ 
 
   if (loading) {
     return (
@@ -161,7 +144,7 @@ const Gallery: React.FC = () => {
                 {/* Category Badge */}
                 <div className="absolute top-4 left-4">
                   <span className={`inline-block px-3 py-1 rounded-full text-white text-xs font-medium ${getCategoryColor(item.category || 'general')}`}>
-                    {getCategoryName(item.category || 'general')}
+                   
                   </span>
                 </div>
 

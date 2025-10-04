@@ -3,10 +3,13 @@ import { useGoogleImages } from "../hooks/google";
 import { Play, Calendar, Users, Star } from "lucide-react";
 import { useLanguage } from "../contexts/LanguageContext";
 import BookingModal from "./BookingModal";
+import RefundPolicyModal from "./RefundPolicyModal";
+import { useModal } from "../hooks/useModal";
 
 const Hero: React.FC = () => {
   const { t } = useLanguage();
   const [showBookingModal, setShowBookingModal] = useState(false);
+  const { open: showRefund, openModal: openRefund, closeModal: closeRefund } = useModal();
   const [showVideo, setShowVideo] = useState(false);
 
   const stats = [
@@ -89,7 +92,7 @@ const Hero: React.FC = () => {
             style={{ animationDelay: "0.8s" }}
           >
             <button
-              onClick={() => setShowBookingModal(true)}
+              onClick={openRefund}
               className="group bg-gradient-to-r from-teal-500 to-blue-600 text-white px-8 py-4 rounded-xl font-semibold text-lg transform transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:from-teal-400 hover:to-blue-500"
             >
               <span className="flex items-center justify-center">
@@ -121,6 +124,17 @@ const Hero: React.FC = () => {
         </div>
       </div>
 
+      {/* Refund Policy Modal */}
+      {showRefund && (
+        <RefundPolicyModal
+          open={showRefund}
+          onAccept={() => {
+            closeRefund();
+            setShowBookingModal(true);
+          }}
+          onReject={closeRefund}
+        />
+      )}
       {/* Booking Modal */}
       {showBookingModal && (
         <BookingModal

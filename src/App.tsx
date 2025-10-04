@@ -7,6 +7,7 @@ import ServicesPage from './pages/ServicesPage';
 import ServiceDetailPage from './pages/ServiceDetailPage';
 import GalleryPage from './pages/GalleryPage';
 import ContactPage from './pages/ContactPage';
+import PoliticaDevolucion from './pages/PoliticaDevolucion';
 import './App.css';
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
               <Route path="service/:id" element={<ServiceDetailPage />} />
               <Route path="gallery" element={<GalleryPage />} />
               <Route path="contact" element={<ContactPage />} />
+              <Route path="politica-devolucion" element={<PoliticaDevolucion />} />
             </Route>
           </Routes>
         </div>
