@@ -34,11 +34,8 @@ export function useGoogleImages() {
         });
         // Si la URL no es absoluta, forzar ruta local
         const fixUrl = (url: string, fallback: string) => {
-          if (!url) return fallback;
-          if (/^https?:\/\//.test(url)) return url;
-          // Si es solo el nombre del archivo, prepende /imgp/
-          if (!url.startsWith("/")) return `/imgp/${url}`;
-          return url;
+          if (url && /^https?:\/\//.test(url)) return url;
+          return fallback;
         };
         setImages({
           img1: fixUrl(portada, "/imgp/1.webp"),
