@@ -65,12 +65,12 @@ const Header: React.FC = () => {
             />
             <div className="hidden sm:block">
               <h1
-                className={`font-bold text-lg ${isScrolled ? "text-gray-800" : "text-white"}`}
+                className="font-bold text-lg text-teal-500"
               >
                 Roatan East
               </h1>
               <p
-                className={`text-sm ${isScrolled ? "text-gray-600" : "text-gray-200"}`}
+                className="text-sm text-teal-500"
               >
                 Hidden Gem
               </p>
@@ -83,13 +83,7 @@ const Header: React.FC = () => {
               <Link
                 key={item.key}
                 to={item.href}
-                className={`font-medium transition-colors duration-200 hover:text-teal-500 ${
-                  isActivePath(item.href)
-                    ? "text-teal-500"
-                    : isScrolled
-                    ? "text-gray-800"
-                    : "text-white"
-                }`}
+                className="font-medium transition-colors duration-200 text-teal-500 hover:text-teal-600"
               >
                 {item.label}
               </Link>
@@ -141,11 +135,7 @@ const Header: React.FC = () => {
                   key={item.key}
                   to={item.href}
                   onClick={() => setIsMenuOpen(false)}
-                  className={`block px-6 py-3 font-medium transition-colors duration-200 hover:bg-teal-50 hover:text-teal-600 ${
-                    isActivePath(item.href)
-                      ? "text-teal-600 bg-teal-50"
-                      : "text-gray-800"
-                  }`}
+                  className="block px-6 py-3 font-medium transition-colors duration-200 text-teal-500 hover:bg-teal-50 hover:text-teal-600"
                 >
                   {item.label}
                 </Link>

@@ -223,8 +223,10 @@ const ServicesPage: React.FC = () => {
                     </div>
                     <div className="absolute top-4 right-4">
                       <div className="flex items-center bg-white/90 backdrop-blur-sm rounded-full px-2 py-1">
-                        <Star className="w-4 h-4 text-yellow-400 mr-1" />
-                        <span className="text-sm font-medium">4.9</span>
+                        {[...Array(5)].map((_, i) => (
+                          <Star key={i} className="w-4 h-4 text-yellow-400 mr-0.5" />
+                        ))}
+                        <span className="text-sm font-medium ml-1">5</span>
                       </div>
                     </div>
                   </div>
@@ -249,7 +251,11 @@ const ServicesPage: React.FC = () => {
                       )}
                       <div className="flex items-center text-sm text-gray-500">
                         <Users className="w-4 h-4 mr-2 text-teal-500" />
-                        <span>Grupos pequeños (máx. 8 personas)</span>
+                        <span>
+                          {tour.groupInfo
+                            ? `Grupo de personas (máx. ${tour.groupInfo} personas)`
+                            : 'Grupo de personas (máx. 8 personas)'}
+                        </span>
                       </div>
                       {tour.included && tour.included.length > 0 && (
                         <div className="text-sm text-gray-500">

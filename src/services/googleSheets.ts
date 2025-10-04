@@ -29,18 +29,16 @@ const processToursData = (data: any[][]): Tour[] => {
       image: row[headers.indexOf('image')] || row[headers.indexOf('imagen')] || '',
       duration: row[headers.indexOf('duration')] || row[headers.indexOf('duracion')] || '',
       category: row[headers.indexOf('category')] || row[headers.indexOf('categoria')] || 'adventure',
+      groupInfo: row[6] || '', // Columna G (índice 6)
     };
-    
     // Procesar elementos incluidos si existe la columna
     const includedIndex = headers.indexOf('included') || headers.indexOf('incluye');
     if (includedIndex !== -1 && row[includedIndex]) {
       tour.included = row[includedIndex].split(',').map(item => item.trim());
     }
-    
     tour.requirements = row[headers.indexOf('requirements')] || row[headers.indexOf('requisitos')] || '';
-    
     return tour;
-  }).filter(tour => tour.name); // Filtrar tours sin nombre
+  }).filter(tour => tour.name);
 };
 
 // Función para procesar datos de experiencias

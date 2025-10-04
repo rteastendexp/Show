@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useContactos } from '../hooks/contactos';
 import { Phone, Mail, MapPin, Send, MessageCircle, Instagram, Facebook, Clock, CheckCircle, X } from 'lucide-react';
 import { useLanguage } from '../contexts/LanguageContext';
 import { ContactForm } from '../types';
@@ -81,18 +82,18 @@ const Contact: React.FC = () => {
     setFormData(prev => ({ ...prev, [name]: value }));
   };
 
+  const { sendContact, loading, error: sendError, success } = useContactos();
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     setSubmitStatus('idle');
-
     try {
-      // Simular envío del formulario
-      await new Promise(resolve => setTimeout(resolve, 2000));
-      
-      // En una implementación real, aquí se enviaría a un endpoint
-      console.log('Contact form data:', formData);
-      
+      await sendContact({
+        nombre: formData.name,
+        email: formData.email,
+        telefono: formData.phone,
+        mensaje: formData.message
+      });
       setSubmitStatus('success');
       setFormData({ name: '', email: '', phone: '', message: '' });
     } catch (error) {
@@ -253,8 +254,7 @@ const Contact: React.FC = () => {
                   {t.contact.success}
                 </div>
               )}
-
-              {submitStatus === 'error' && (
+              {(submitStatus === 'error' || sendError) && (
                 <div className="flex items-center p-4 bg-red-50 border border-red-200 rounded-lg text-red-800">
                   <X className="w-5 h-5 mr-2" />
                   {t.contact.error}
@@ -263,10 +263,10 @@ const Contact: React.FC = () => {
 
               <button
                 type="submit"
-                disabled={isSubmitting}
+                disabled={isSubmitting || loading}
                 className="w-full flex items-center justify-center px-6 py-3 bg-gradient-to-r from-teal-500 to-blue-600 text-white rounded-lg font-semibold hover:from-teal-600 hover:to-blue-700 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed transform hover:scale-105 hover:shadow-lg"
               >
-                {isSubmitting ? (
+                {isSubmitting || loading ? (
                   <>
                     <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
                     {t.contact.sending}

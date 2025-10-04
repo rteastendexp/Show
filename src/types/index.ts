@@ -10,6 +10,7 @@ export interface Tour {
   included?: string[];
   requirements?: string;
   category?: string;
+  groupInfo?: string;
 }
 
 export interface Experience {
