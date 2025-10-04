@@ -7,17 +7,19 @@ const FloatingPrintButton: React.FC = () => {
     const printWindow = window.open('', '', 'width=900,height=700');
     if (!printWindow) return;
     printWindow.document.write(`
-      <html>
+      <!DOCTYPE html>
+      <html lang='en'>
         <head>
           <meta name='viewport' content='width=device-width, initial-scale=1.0'>
           <title>Refund Policy</title>
           <style>
             @media print {
-              @page { margin: 0.5in; size: auto; }
+              @page { size: Letter; margin: 0.5in; }
               body { margin: 0; font-size: 18px; }
               header, footer, .print-hide { display: none !important; }
             }
-            body { font-family: Arial, Helvetica, sans-serif; color: #222; background: #fff; font-size: 18px; line-height: 1.6; }
+            html, body { width: 100%; max-width: 100vw; box-sizing: border-box; }
+            body { font-family: Arial, Helvetica, sans-serif; color: #222; background: #fff; font-size: 18px; line-height: 1.6; margin: 0; padding: 0; }
             h1, h2, h3, h4, h5, h6 { color: #0f766e; }
             ol, ul { margin-left: 1.5em; }
             .text-teal-700 { color: #0f766e; }
@@ -28,7 +30,11 @@ const FloatingPrintButton: React.FC = () => {
             section, div, p, li { box-sizing: border-box; word-break: break-word; }
           </style>
         </head>
-        <body>${policySection.innerHTML}</body>
+        <body>
+          <main style='max-width:800px;margin:auto;'>
+            ${policySection.innerHTML}
+          </main>
+        </body>
       </html>
     `);
     printWindow.document.close();
