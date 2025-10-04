@@ -83,11 +83,10 @@ const ContactPage: React.FC = () => {
               <div className="space-y-6">
                 <div className="bg-gray-50 p-6 rounded-lg">
                   <h3 className="font-semibold text-gray-800 mb-2">
-                    Is hotel transportation included?
+                    Where does the tour start?
                   </h3>
                   <p className="text-gray-600 text-sm">
-                    Yes, all our tours include free transportation from hotels in East Roatan. For other areas, we will coordinate the most convenient meeting point.
-                  </p>
+Each excursion has a designated meeting point, which we will confirm at the time of booking, to ensure convenience and easy access.                  </p>
                 </div>
 
                 <div className="bg-gray-50 p-6 rounded-lg">

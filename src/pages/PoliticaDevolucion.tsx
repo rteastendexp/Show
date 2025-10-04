@@ -1,10 +1,10 @@
 import React from "react";
 import ContactoOficial from "../components/ContactoOficial";
-import FloatingPDFButton from "../components/FloatingPDFButton";
+import FloatingPrintButton from "../components/FloatingPDFButton";
 
 const ReturnPolicy: React.FC = () => (
   <section className="max-w-3xl mx-auto px-4 py-12 text-gray-800">
-    <FloatingPDFButton />
+  <FloatingPrintButton />
     <div className="mb-6">
       <h1 className="text-3xl font-bold text-teal-700">
         BOOKING POLICY & TERMS OF SERVICE
