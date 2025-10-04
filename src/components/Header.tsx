@@ -56,7 +56,7 @@ const Header: React.FC = () => {
             onClick={() => setIsMenuOpen(false)}
           >
             <img
-              src="/logo.webp"
+              src="/imgp/logo.webp"
               alt="Roatan East Hidden Gem Logo"
               className="w-12 h-12 rounded-full shadow-lg border-2 border-white bg-white object-cover group-hover:scale-110 transition-transform duration-200"
               style={{ background: "white" }}

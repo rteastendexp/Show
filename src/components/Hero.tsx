@@ -34,7 +34,7 @@ const Hero: React.FC = () => {
   {/* Background Image with Overlay */}
   <div className="absolute inset-0 z-0">
     <img
-      src="/1.webp"
+      src="/imgp/1.webp"
       alt="Roatan East Hidden Gem"
       className="w-full h-full object-cover object-center"
       loading="lazy"

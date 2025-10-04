@@ -158,7 +158,7 @@ const GalleryPage: React.FC = () => {
       {/* Hero Section */}
       <section className="relative py-20 text-white overflow-hidden min-h-[90vh] md:min-h-[110vh] flex items-center justify-center">
         <img
-          src="/2.webp"
+          src="/imgp/2.webp"
           alt="Galería Roatan East Hidden Gem"
           className="absolute inset-0 w-full h-full object-cover object-center z-0"
           style={{ filter: "brightness(0.7)" }}
