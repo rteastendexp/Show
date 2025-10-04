@@ -11,6 +11,7 @@ export interface Tour {
   requirements?: string;
   category?: string;
   groupInfo?: string;
+  categoryLabel?: string;
 }
 
 export interface Experience {

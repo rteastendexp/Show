@@ -30,6 +30,7 @@ const processToursData = (data: any[][]): Tour[] => {
       duration: row[headers.indexOf('duration')] || row[headers.indexOf('duracion')] || '',
       category: row[headers.indexOf('category')] || row[headers.indexOf('categoria')] || 'adventure',
       groupInfo: row[6] || '', // Columna G (índice 6)
+      categoryLabel: row[7] || '', // Columna H (índice 7)
     };
     // Procesar elementos incluidos si existe la columna
     const includedIndex = headers.indexOf('included') || headers.indexOf('incluye');
@@ -83,8 +84,8 @@ export const getTours = async (): Promise<Tour[]> => {
     return processToursData(data);
   } catch (error) {
     console.error('Error fetching tours:', error);
-    // Datos mock en caso de error
-    return getMockTours();
+    // No retornar mock, solo array vacío
+    return [];
   }
 };
 
@@ -113,56 +114,6 @@ export const getGallery = async (): Promise<GalleryItem[]> => {
 };
 
 // Datos mock para desarrollo y fallback
-export const getMockTours = (): Tour[] => [
-  {
-    id: 'mangrove-adventure',
-    name: 'Aventura en Manglares',
-    description: 'Explora los misteriosos manglares de Roatán en kayak y descubre la increíble vida silvestre.',
-    personPrice: 45,
-    price: 45,
-    image: '/images/mangrove-kayaking.jpg',
-    duration: '3 horas',
-    included: ['Kayak', 'Guía certificado', 'Equipo de seguridad', 'Refrigerios'],
-    requirements: 'Saber nadar básico',
-    category: 'water-adventure',
-  },
-  {
-    id: 'snorkeling-paradise',
-    name: 'Paraíso del Snorkel',
-    description: 'Sumérgete en las cristalinas aguas del Caribe y descubre el vibrante mundo submarino.',
-    personPrice: 35,
-    price: 35,
-    image: '/images/snorkeling-adventure.webp',
-    duration: '2.5 horas',
-    included: ['Equipo de snorkel', 'Transporte', 'Guía marina', 'Agua y snacks'],
-    requirements: 'Edad mínima 8 años',
-    category: 'water-adventure',
-  },
-  {
-    id: 'jungle-exploration',
-    name: 'Exploración de la Selva',
-    description: 'Aventúrate en la exuberante selva tropical y conoce la flora y fauna únicas.',
-    personPrice: 40,
-    price: 40,
-    image: '/images/jungle-exploration.jpg',
-    duration: '4 horas',
-    included: ['Guía naturalista', 'Transporte', 'Almuerzo ligero', 'Repelente'],
-    requirements: 'Condición física moderada',
-    category: 'nature',
-  },
-  {
-    id: 'sunset-cruise',
-    name: 'Crucero al Atardecer',
-    description: 'Disfruta de un romántico crucero mientras el sol se pone en el horizonte caribeño.',
-    personPrice: 55,
-    price: 55,
-    image: '/images/sunset-boat-tour.jpg',
-    duration: '2 horas',
-    included: ['Bebidas', 'Aperitivos', 'Música en vivo', 'Capitán experimentado'],
-    requirements: 'Sin restricciones',
-    category: 'romantic',
-  }
-];
 
 export const getMockExperiences = (): Experience[] => [
   {

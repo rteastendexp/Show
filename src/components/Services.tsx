@@ -123,13 +123,7 @@ const Services: React.FC = () => {
                     <span className="mr-1">
                       {getCategoryIcon(tour.category || "default")}
                     </span>
-                    {tour.category === "water-adventure"
-                      ? "Agua"
-                      : tour.category === "nature"
-                        ? "Naturaleza"
-                        : tour.category === "romantic"
-                          ? "Romántico"
-                          : "Aventura"}
+                    {tour.categoryLabel || "Aventura"}
                   </span>
                 </div>
                 <div className="absolute top-4 right-4">
